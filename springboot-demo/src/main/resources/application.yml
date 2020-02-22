@@ -1,0 +1,93 @@
+
+spring:
+  profiles:
+    active: dev
+
+  thymeleaf:
+    cache: false
+
+  mvc:
+    locale-resolver: accept_header
+  messages:
+    basename: i18n.messages
+    fallback-to-system-locale: true
+
+  datasource:
+    username: root
+    password: kayfhan
+    url: jdbc:mysql://localhost:3306/jpa
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    # durid 数据源设置配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  redis:
+    host: localhost
+    password:
+    database: 1
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml # 指定全局配置文件的位置
+  mapper-locations: classpath:mybatis/mapper/*.xml  # 指定sql映射文件的位置
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8081
+
+kay:
+  service:
+    prefix: hi
+    suffix: baby
+
+debug: false
+
+#spring:
+#  profiles:
+#    active: dev
+#
+#---
+#server:
+#  port: 8081
+#
+#person:
+#  last-name: "dev-kay${random.uuid}"
+#  age: 21
+#  address: "${person.hh:32}_beijing"
+#
+#spring:
+#  profiles: dev
+#
+#---
+#server:
+#  port: 8080
+#
+#person:
+#  last-name: "kay${random.uuid}"
+#  age: 21
+#  address: "${person.hh:32}_beijing"
+#
+#spring:
+#  profiles: prod
+

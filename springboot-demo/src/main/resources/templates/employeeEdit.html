@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+
+<body>
+
+<div th:replace="~{commons/bar::navbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- 断点替换 侧边栏 -->
+        <div th:replace="commons/bar::#sidebar(activeUrl='employee')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h2>add employee</h2>
+            <form th:action="@{/emp}" method="post">
+
+                <input type="hidden" name="_method" value="put" th:if="${employee != null}">
+                <input type="hidden" name="id" th:if="${employee != null}" th:value="${employee.id}">
+                <div class="form-group">
+                    <label>LastName</label>
+                    <input name="lastName" type="text" th:value="${employee != null}?${employee.lastName}" class="form-control" placeholder="zhangsan">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input name="email" type="email" th:value="${employee != null}?${employee.email}" class="form-control" placeholder="zhangsan@atguigu.com">
+                </div>
+                <div class="form-group">
+                    <label>Gender</label><br/>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" th:checked="${employee != null}?${employee.gender == 1}" name="gender" value="1">
+                        <label class="form-check-label">男</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" th:checked="${employee != null}?${employee.gender == 0}" name="gender" value="0">
+                        <label class="form-check-label">女</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>department</label>
+                    <select name="department.id" class="form-control">
+                        <option th:selected="${employee != null}?${employee.department.id}" th:value="${dept.id}" th:text="${dept.departmentName}" th:each="dept:${departments}">1
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Birth</label>
+                    <input name="birth" type="text" class="form-control" th:value="${employee != null}?${employee.birth}" placeholder="zhangsan">
+                </div>
+                <button type="submit" class="btn btn-primary" th:text="${employee !=null}?'更新':'添加'"></button>
+            </form>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" th:src="@{/asserts/js/jquery-3.2.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+
+</body>
+
+</html>
