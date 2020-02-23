@@ -15,9 +15,9 @@ import java.util.Collection;
 @Controller
 public class EmployeeController {
     @Autowired
-    EmployeeDao employeeDao;
+    private EmployeeDao employeeDao;
     @Autowired
-    DepartmentDao departmentDao;
+    private DepartmentDao departmentDao;
 
     @GetMapping("/emps")
     public String employees(Model model) {

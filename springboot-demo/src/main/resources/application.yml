@@ -2,6 +2,9 @@
 spring:
   profiles:
     active: dev
+---
+spring:
+  profiles: dev
 
   thymeleaf:
     cache: false
@@ -46,6 +49,15 @@ spring:
     host: localhost
     password:
     database: 1
+  security:
+    user:
+      name: kay
+      password: a
+      roles: ADMIN
+  mail:
+    host: smtp.qq.com
+    username: 601400175@qq.com
+    password: vzjiecomcsumbcfc
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml # 指定全局配置文件的位置
@@ -54,7 +66,6 @@ mybatis:
 server:
   tomcat:
     uri-encoding: UTF-8
-  port: 8081
 
 kay:
   service:
@@ -63,31 +74,21 @@ kay:
 
 debug: false
 
-#spring:
-#  profiles:
-#    active: dev
-#
-#---
-#server:
-#  port: 8081
-#
-#person:
-#  last-name: "dev-kay${random.uuid}"
-#  age: 21
-#  address: "${person.hh:32}_beijing"
-#
-#spring:
-#  profiles: dev
-#
-#---
-#server:
-#  port: 8080
-#
-#person:
-#  last-name: "kay${random.uuid}"
-#  age: 21
-#  address: "${person.hh:32}_beijing"
-#
-#spring:
-#  profiles: prod
+person:
+  last-name: "dev-kay${random.uuid}"
+  age: 21
+  address: "${person.hh:32}_beijing"
 
+# http://localhost:8080/actuator/metrics
+# http://localhost:8080/actuator/health
+management:
+  health:
+    mail:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
